@@ -11,7 +11,12 @@ jobs:
               uses: actions/cache@v3
               with:
                 path: ~/.npm
-                key: "npm-cache-key"
+                key: ${{runner.os}}-npm-cache-key-${{hashFiles('**/package-lock.json')}}
+                restore-keys: |
+                  ${{runner.os}}-npm-cache-
+                  ${{runner.os}}-  
+
+                # linux-npm-cahe-key-1234
             - name: Display cache output
               run: echo '${{toJson(steps.cache-dep.outputs)}}'   
             - name: install depe
