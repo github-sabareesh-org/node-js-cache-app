@@ -1,0 +1,17 @@
+name: caching the node app
+on: [workflow_dispatch]
+jobs:
+    node-app-job:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: checkout and install dep
+              run: npm install
+            - name: Use Axios
+              uses: actions/github-script@v6
+              with:
+                script: |
+                  const axios = require('axios');
+                  const res = await axios('https://icanhazdadjoke.com/', { headers: { Accept: 'text/plain' } })
+                  console.log(res.data)
+        
